@@ -1,6 +1,4 @@
 
-
-
 <?php include "dbConfig.php";
 session_start();
 $msg = "";
@@ -11,32 +9,69 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $lastname = $_POST['lastname'];
     $gender = $_POST['gender'];
     
-    $usertype = $_POST['usertype'];
+    
     $weight = $_POST['weight'];
     $height = $_POST['height'];
     $phoneno = $_POST['phoneno'];
     $bloodgroup =$_POST['bloodgroup'];
     $age = $_POST['age'];
-    $specialization = $_POST['specialization'];
-   
-         if ($name == '' || $password == '' || $firstname=='' || $lastname=='' || $gender=='' ||
-         $usertype =='' || $weight =='' || $height == '' || $phoneno == '' || $bloodgroup =='' || $age =='' || $specialization ==''){
-        $msg = "You must enter all fields";
-    } else {
-        $sql = "INSERT INTO record values('$name', '$password','$firstname','$lastname','$gender','$usertype','$weight','$height','$phoneno','$bloodgroup','$age','$specialization')";
-        $query = mysqli_query($link, $sql);
 
-        if ($query === false) {
+    sha1($firstname.$name.$phoneno);
+    $pattern = '/^(?=.*[!@#$%^&*-])(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z]).{8,20}$/';
+   
+
+   
+         if ($name == '' || $password =='' || $firstname=='' || $lastname=='' || $gender=='' ||
+          $weight =='' || $height == '' || $phoneno == '' || $bloodgroup =='' || $age =='' ){
+             echo '
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <script>
+            alert("You must enter all fields");
+            </script>
+            </head>
+            <body>
+
+            </body>
+            </html>';
+           
+    } else { 
+             if(preg_match($pattern, $password)){
+               $id = sha1($firstname.$name.$phoneno);
+                $sql = "INSERT INTO patient values('$id','$name', '$password','$firstname','$lastname','$gender','$weight','$height','$phoneno','$bloodgroup','$age')";
+                $query = mysqli_query($link, $sql);
+                } else {
+               echo "Password is not strong enough";
+
+            if ($query === false) {
             echo "Could not successfully run query ($sql) from DB: " . mysqli_error($link);
             exit;
+            }
+            
+           
         }
     
-        echo "Registration completed successfully <br>";
-        echo(sha1($firstname));
+
+        echo '
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <script>
+        alert("Registration completed successfully, You can Now Login to your account");
+        </script>
+        </head>
+        <body>
+
+        </body>
+        </html>';
+        
        
-        $msg = "Username and password do not match";
     }
 }
+
+              
+
 
 ?>
 <!DOCTYPE html>
@@ -51,9 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <body>
         <div class="header"> 
-            <img src="sdn.png"><h1> SensorDrops<br> Networks </h1>
-            
-
+            <img src="sdn.png">
 
         </div>
  
@@ -132,13 +165,13 @@ body {
 h1{
     margin-top: 10px;
     text-align: center;
-    font: size 22px;
+    font-size:30px;
     color: brown;
 }
 p{
     margin: 0;
     text-align: center;
-    font: size 22px;
+    font-size: 22px;
     color: brown;
 }
 
@@ -257,3 +290,4 @@ img{
 </style>
 </head>
 </html>
+
