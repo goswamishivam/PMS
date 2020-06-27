@@ -5,7 +5,8 @@ $y = 140;
 $dataPoints1 = array();
 for($i = 0; $i < $limit; $i++){
   $y += rand(0, 10); 
-  array_push($dataPoints1, array("x" => $i, "y" => $y));
+  $time = (time() + 3600*$i )*1000;
+  array_push($dataPoints1, array("x" => $time, "y" => $y));
 }
 
 $limit = 10;
@@ -13,7 +14,8 @@ $y = 90;
 $dataPoints2 = array();
 for($i = 0; $i < $limit; $i++){
   $y += rand(0, 10); 
-  array_push($dataPoints2, array("x" => $i, "y" => $y));
+  $time = (time() + 3600*$i )*1000;
+  array_push($dataPoints2, array("x" => $time, "y" => $y));
 }
 
 ?>
@@ -37,7 +39,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
     itemclick: toggleDataSeries
   },
   axisX: {
-    title: "Time (hours)"
+    title: "Time"
   },
   axisY: {
     title: "Pressure (mm-Hg)"
@@ -46,14 +48,18 @@ var chart = new CanvasJS.Chart("chartContainer", {
     type: "column",
     name: "Systolic Pressure",
     indexLabel: "{y}",
-    showInLegend: true,
     color: "teal",
+    showInLegend: true,
+    xValueType: "dateTime",
+    xValueFormatString: "DD MMM YYYY hh:mm:ss TT",
     dataPoints: <?php echo json_encode($dataPoints1, JSON_NUMERIC_CHECK); ?>
   },{
     type: "column",
     name: "Diastolic Pressure",
     indexLabel: "{y}",
     showInLegend: true,
+    xValueType: "dateTime",
+    xValueFormatString: "DD MMM YYYY hh:mm:ss TT",
     dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
   }]
 });
