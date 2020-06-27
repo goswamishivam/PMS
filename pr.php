@@ -5,7 +5,7 @@ $y = 100;
 $dataPoints = array();
 for($i = 0; $i < $limit; $i++){
   $y += rand(0, 50); 
-  $time = (time() + 3600*$i )*1000;
+  $time = (time() + 120*$i )*1000;
   array_push($dataPoints, array("x" => $time, "y" => $y));
 }
 
