@@ -5,7 +5,8 @@ $y = 80;
 $dataPoints = array();
 for($i = 0; $i < $limit; $i++){
   $y += rand(0, 10); 
-  array_push($dataPoints, array("x" => $i, "y" => $y));
+  $time = (time() + 3600*$i )*1000;
+  array_push($dataPoints, array("x" => $time, "y" => $y));
 }
 
 ?>
@@ -20,20 +21,22 @@ var chart = new CanvasJS.Chart("chartContainer", {
   animationEnabled: true,
   theme: "light2",
   title:{
-    text: "SPO2 Level"
+    text: "SPO2"
   },
   axisY: {
-    title: "SPO2 %"
+    title: "SPO2(%)"
   },
    axisX: {
-    title: "Time (hours)"
+    title: "Time"
   },
   data: [{
     type: "column",
     name: "spo2",
     indexLabel: "{y}",
-    showInLegend: true,
+   
     color: "#008080",
+    xValueType: "dateTime",
+    xValueFormatString: "DD MMM YYYY hh:mm:ss TT",
     dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
   }]
 });
