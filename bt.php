@@ -1,18 +1,22 @@
- <?php
- 
+ <?php 
 $limit = 10;
 $y = 100;
 $dataPoints = array();
+
 for($i = 0; $i < $limit; $i++){
   $y += rand(0, 20)-5; 
-  array_push($dataPoints, array("x" => $i, "y" => $y));
+
+  $time = (time() + 3600*$i )*1000;
+
+  array_push($dataPoints, array("x" => $time, "y" => $y));
 }
 
 ?>
-
  <div class="chart">
   <script src="../assets/demo/demo.js"></script>
   <div id="chartContainer" style="height: 400px; width: 90%;"></div>
+  
+
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></div>
  
  <script>
@@ -20,10 +24,10 @@ var chart = new CanvasJS.Chart("chartContainer", {
   animationEnabled: true,
   theme: "light2",
   title:{
-    text: "body temperature Level"
+    text: "Body temperature"
   },
   axisY: {
-    title: "bt %"
+    title: "Temperature(celcius)"
   },
    axisX: {
     title: "Time (hours)"
@@ -34,8 +38,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
     indexLabel: "{y}",
     showInLegend: true,
     color: "#008080",
+    xValueType: "dateTime",
+    xValueFormatString: "DD MMM YYYY hh:mm:ss TT",
     dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-  }]
+  }
+  ]
 });
 chart.render();
 
