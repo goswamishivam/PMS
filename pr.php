@@ -5,7 +5,8 @@ $y = 100;
 $dataPoints = array();
 for($i = 0; $i < $limit; $i++){
   $y += rand(0, 50); 
-  array_push($dataPoints, array("x" => $i, "y" => $y));
+  $time = (time() + 3600*$i )*1000;
+  array_push($dataPoints, array("x" => $time, "y" => $y));
 }
 
 ?>
@@ -25,12 +26,16 @@ var chart = new CanvasJS.Chart("chartContainer", {
   axisY: {
     title: "Pulse Rate (beats/minute)"
   },
+  axisX: {
+    title: "Time"
+  },
   data: [{
     type: "column",
     name: "pulse rate",
     indexLabel: "{y}",
-    showInLegend: true,
     color: "#008080",
+    xValueType: "dateTime",
+    xValueFormatString: "DD MMM YYYY hh:mm:ss TT",
     dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
   }]
 });
