@@ -25,8 +25,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                  "firstname : {$row['firstname']} <br> ".
                  "lastname  : {$row['lastname']} <br> ".
                  "gender : {$row['gender']} <br> ".
+                 "weight : {$row['weight']} <br> ".
+                 "height : {$row['height']} <br> ".
                  "phoneno : {$row['phoneno']} <br> ".
+                 "bloodgroup : {$row['bloodgroup']} <br> ".
                  "age : {$row['age']} <br> ".
+                 
                  "--------------------------------<br>";
              }
         else{
