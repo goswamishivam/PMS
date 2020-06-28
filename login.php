@@ -4,11 +4,13 @@ $msg = "";
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name'];
     $password = $_POST['password'];
+    $usertype = 'patient';
     
      if ($name == '' || $password == '' ) {
         $msg = "You must enter all fields";
     } else {
-        $sql = "SELECT * FROM  members WHERE name = '$name' AND password = '$password'";
+        $sql = "SELECT * FROM  patient WHERE username = '$name' AND password = '$password'";
+        #UNION SELECT * FROM  doctor WHERE username = '$name' AND password = '$password'";
         $query = mysqli_query($link, $sql);
 
         if ($query === false) {
@@ -16,8 +18,41 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
         if(mysqli_num_rows($query) == 1)
-        	echo "success";
-        else echo "Username and password do not match";
+        	while($row = mysqli_fetch_array($query)) {
+                echo "Success <br>".
+                 "name :{$row['username']}  <br> ".
+                 "password : {$row['password']} <br> ".
+                 "firstname : {$row['firstname']} <br> ".
+                 "lastname  : {$row['lastname']} <br> ".
+                 "gender : {$row['gender']} <br> ".
+                 "phoneno : {$row['phoneno']} <br> ".
+                 "age : {$row['age']} <br> ".
+                 "--------------------------------<br>";
+             }
+        else{
+            $sql = "SELECT * FROM  doctor WHERE username = '$name' AND password = '$password'";
+            $query = mysqli_query($link, $sql);
+            if(mysqli_num_rows($query) == 1) {
+                $usertype = "doctor";
+                while($row = mysqli_fetch_array($query)) {
+                  echo "Success <br>".
+                     "name :{$row['username']}  <br> ".
+                     "password : {$row['password']} <br> ".
+                     "firstname : {$row['firstname']} <br> ".
+                     "lastname  : {$row['lastname']} <br> ".
+                     "gender : {$row['gender']} <br> ".
+                     "phoneno : {$row['phoneno']} <br> ".
+                     "age : {$row['age']} <br> ".
+                     "specialization : {$row['specialization']} <br> ".
+                     "--------------------------------<br>";
+             }
+            }
+            else {
+                echo "Username and password do not match";
+                exit;
+            }
+        
+        }
     }
 }
 ?>
@@ -30,11 +65,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="loginbox" >
          
              <h1>Login </h1>
-            <form>
+            <form method="POST">
                 <p>Usename</p>
-                <input type="text name" name="" placeholder="Enter Username">
+                <input type="text name" name="name" placeholder="Enter Username">
                 <p>Password</p>
-                <input type="password" name=""placeholder="Enter Password">
+                <input type="password" name="password"placeholder="Enter Password">
                 <input type="Submit" name="" value="Login">
                 <br>
                 <a href="#">Forgot your password?</a><br>
