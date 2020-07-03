@@ -1,4 +1,5 @@
 
+
   
 
 <?php include "dbConfig.php";
@@ -58,6 +59,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <body>
                     </body>
                     </html>';
+
+                    
             }
            
             } else {
@@ -86,7 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <!-- STYLE CSS -->
         <link rel="stylesheet" type="text/css" href="style.css">
-
+        
     <body>
         <div class="header"> 
             <img src="<?php echo base_url('images/sdn.png'); ?>" /> 
@@ -129,10 +132,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <input type="password" placeholder="Password" name="password">
                         <input type="password" placeholder="Confirm Password" name="">
                         <input type="submit" name="" value="Submit">
+                        <p>
+        Already a member? <a href="<?= base_url("") ?>">Sign in</a>
+    </p>
 
                 </form>
             </div>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 <style>
@@ -153,7 +159,7 @@ body {
 
 .registrationbox{
     width: 480px;
-    height: 580px ;
+    height: 600px ;
     background: linear-gradient(to bottom, #99ccff 0%, #ffcccc 65%);
     color:#fff;
     top:50%;
@@ -294,4 +300,6 @@ img{
 </style>
 </head>
 </html>
+
+
 
