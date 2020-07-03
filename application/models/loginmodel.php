@@ -18,7 +18,7 @@ class loginmodel extends CI_Model{
 
 	public function userdata(){
 		$name=$this->session->userdata('name');
-		$q=$this->db->select('firstname')
+		$q=$this->db->select()
 				->from('patient')
 				->where(['name'=>$name])
 				->get();
