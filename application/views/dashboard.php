@@ -52,7 +52,7 @@ for($i = 0; $i < $limit; $i++){
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./user.html">
+            <a class="nav-link" href="<?= base_url("Dashboard/userdashboard") ?>">
               <i class="material-icons">person</i>
               <p>User Profile</p>
             </a>
@@ -86,6 +86,7 @@ for($i = 0; $i < $limit; $i++){
           <div class="navbar-wrapper">
             <h1>Welcome 
             <?php echo $d[0]->firstname;?> </h1>
+
             
           </div>
           
@@ -209,6 +210,7 @@ chart.render();
      <a href="<?= base_url('Graphs/spo2')?>"> <input type="submit" name="" value="SPO2 Level"></a>
      <a href="<?= base_url('Graphs/bt')?>"> <input type="submit" name="" value="Body Temperature"></a>
      <a href="<?= base_url('Graphs/pr')?>"> <input type="submit" name="" value="Pulse Rate"></a>
+     <a href="<?= base_url('Dashboard/criticalindex')?>"> <input type="submit" name="" value="Critical Index"></a>
 
 </div>
 
@@ -246,6 +248,7 @@ chart.render();
   cursor: pointer;
   box-shadow: 0 1.75rem 2rem -0.4rem rgba(50,0,100,0.15);
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 .Header input[type="submit"]:hover
 {
