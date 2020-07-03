@@ -15,6 +15,9 @@ class Dashboard extends MY_Controller{
 				$this->load->library('session');
 				$this->session->set_userdata('name',$name);
 				return redirect('Dashboard/welcome');
+				return redirect('Dashboard/userdashboard');
+				return redirect('Dashboard/criticalindex');
+
 
 			}
 			else{
@@ -45,7 +48,15 @@ class Dashboard extends MY_Controller{
 	}
 
 	public function userdashboard(){
-		$this->load->view('dashboard');
+		$this->load->model('loginmodel');
+		$d=$this->loginmodel->userdata();
+		$this->load->view('user',['d'=>$d]);
+	}
+
+	public function criticalindex(){
+		$this->load->model('loginmodel');
+		$d=$this->loginmodel->userdata();
+		$this->load->view('criticalindex',['d'=>$d]);
 	}
 	
 	public function welcome(){
